@@ -1,0 +1,85 @@
+use school
+
+'switched to db school'
+
+db.createCollection('students')
+{ ok: 1 }
+
+db.students.insert({'name':'Harsh','class': 12 ,'age':'20','total_marks':450})
+{ acknowledged: true,
+  insertedIds: { '0': ObjectId("6326d6214bb7c41605b56c98") } }
+
+db.students.find().pretty()
+{ _id: ObjectId("6326d6214bb7c41605b56c98"),
+  name: 'Harsh',
+  class: 12,
+  age: '20',
+  total_marks: 450 }
+
+db.students.insert({ 'name':'Arun', 'class':11, 'age':'19', 'total_marks':460 , 'rank':5})
+{ acknowledged: true,
+  insertedIds: { '0': ObjectId("6326d6d34bb7c41605b56c99") } }
+
+db.students.insert({ 'name':'Divang', 'class':12, 'age':'21', 'total_marks':490 })
+{ acknowledged: true,
+  insertedIds: { '0': ObjectId("6326d6ed4bb7c41605b56c9a") } }
+
+db.students.find().pretty()
+{ _id: ObjectId("6326d6214bb7c41605b56c98"),
+  name: 'Harsh',
+  class: 12,
+  age: '20',
+  total_marks: 450 }
+{ _id: ObjectId("6326d6d34bb7c41605b56c99"),
+  name: 'Arun',
+  class: 11,
+  age: '19',
+  total_marks: 460,
+  rank: 5 }
+{ _id: ObjectId("6326d6ed4bb7c41605b56c9a"),
+  name: 'Divang',
+  class: 12,
+  age: '21',
+  total_marks: 490 }
+
+db.students.updateOne({name:'Divang'},{$inc:{total_marks:500}})
+{ acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0 }
+
+db.students.find().pretty()
+{ _id: ObjectId("6326d6214bb7c41605b56c98"),
+  name: 'Harsh',
+  class: 12,
+  age: '20',
+  total_marks: 450 }
+{ _id: ObjectId("6326d6d34bb7c41605b56c99"),
+  name: 'Arun',
+  class: 11,
+  age: '19',
+  total_marks: 460,
+  rank: 5 }
+{ _id: ObjectId("6326d6ed4bb7c41605b56c9a"),
+  class: 12,
+  age: '21',
+  total_marks: 990,
+  name: 'Divang' }
+
+db.students.remove({name:'Divang'})
+'DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.'
+{ acknowledged: true, deletedCount: 1 }
+
+db.students.find().pretty()
+{ _id: ObjectId("6326d6214bb7c41605b56c98"),
+  name: 'Harsh',
+  class: 12,
+  age: '20',
+  total_marks: 450 }
+{ _id: ObjectId("6326d6d34bb7c41605b56c99"),
+  name: 'Arun',
+  class: 11,
+  age: '19',
+  total_marks: 460,
+  rank: 5 }
